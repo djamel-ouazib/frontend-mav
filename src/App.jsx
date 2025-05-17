@@ -15,11 +15,13 @@ import Client from './pages/Client'
 import DetailedProductAdmin from './pages/DetailedProductAdmin'
 import MagazineInscription from './pages/MagazineInscription'
 import MenProducts from './pages/MenProduct'
+import ShoppingCart from './pages/ShoppingCart'
 // In your index.js or App.js
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import WomenProducts from './pages/womenProducts'
 import ChatBot from './pages/ChatBot'
+import { CartProvider } from './components/CartContext'
 
 function App() {
   useEffect(() => {
@@ -33,6 +35,7 @@ function App() {
   })
   return (
     <>
+    <CartProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SharedLayout />}>
@@ -47,6 +50,7 @@ function App() {
               path="/productDetailed/:id"
               element={<DetailedProductAdmin />}
             />
+            <Route path="/ShoppingCart" element={<ShoppingCart />} />
             <Route path="/iASearch" element={<ChatBot />} />
           </Route>
           <Route path="/Login" element={<Login />} />
@@ -62,6 +66,7 @@ function App() {
           <Route path="newMagazine/:id" element={<MagazineInscription />} />
         </Routes>
       </BrowserRouter>
+      </CartProvider>
     </>
   )
 }

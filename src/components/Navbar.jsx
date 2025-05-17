@@ -4,13 +4,19 @@ import SearchInput from './SearchInput'
 import CostumeButton from './CostumeButton'
 import { Link, useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../GlobalProvider'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect ,useState} from 'react'
 import axios from 'axios'
+import { useCart } from './CartContext'
 export const Navbar = () => {
   const { setUser } = useContext(GlobalContext)
+  const [numberItems,setNumberItems]=useState(null)
+  const { totalItems } = useCart(); 
   const navigate = useNavigate()
   const loginFunc = () => {
     navigate('/login')
+  }
+  const ShoppingCartFunc = () => {
+    navigate('/ShoppingCart')
   }
   const LogoutFunc = async () => {
     const token = localStorage.getItem('refreshToken')
@@ -126,7 +132,19 @@ export const Navbar = () => {
               className="h-6 m-auto  cursor-pointer"
             />
           )}
-          <img src={cart} alt="cart" className="h-6 m-auto  cursor-pointer" />
+          <div className="relative  w-[66px]">
+           <img
+            src={cart}
+            alt="cart"
+            className="h-6 m-auto cursor-pointer"
+            onClick={ShoppingCartFunc}
+          />
+          {totalItems > 0 && (
+            <span className="absolute   bg-red-500 text-white text-xs px-2 rounded-full">
+              {totalItems}
+            </span>
+          )}
+        </div>
         </div>
       </div>
     </nav>
